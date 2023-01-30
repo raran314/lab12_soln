@@ -1,6 +1,6 @@
 (*
                               CS51 Lab 12
-               Imperative Programming and References
+                Imperative Programming and References
  *)
 (*
                                SOLUTION

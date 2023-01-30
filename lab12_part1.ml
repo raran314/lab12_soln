@@ -91,4 +91,27 @@ let remember : string -> string =
 
    But this allows access to the contents of `memory` outside the
    `remember` function, which is a failure of the abstraction that
-   `remember` is intended to implement. *)
+   `remember` is intended to implement. 
+
+   A common error is to start the function as would be typical given
+   its signature:
+
+    let remember msg =
+    ...
+
+   and then introduce the `memory` variable
+
+    let remember msg =
+      let memory = ref "" in
+      ...
+     
+   finally finishing with the update and return value
+
+    let remember msg =
+      let memory = ref "" in
+      let previous = !memory in
+      memory := msg;
+      previous ;;
+
+   Unfortunately, this version introduces a new `memory` each time
+   it's called, so always returns the empty string.  *)

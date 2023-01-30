@@ -1,6 +1,6 @@
 (*
                               CS51 Lab 12
-               Imperative Programming and References
+		Imperative Programming and References
  *)
 (*
                                SOLUTION
@@ -87,35 +87,37 @@ module MakeImpQueue (Elt : sig
                   : (IMP_QUEUE with type elt = Elt.t) =
   struct
     type elt = Elt.t
-    type mlist = Nil | Cons of elt * (mlist ref)
-    type queue = {front: mlist ref; rear: mlist ref}
-
+    type mlist = mlist_internal ref
+     and mlist_internal =
+       | Nil | Cons of elt * mlist
+    type queue = {front: mlist; rear: mlist}
+		   
     let empty () = {front = ref Nil; rear = ref Nil}
     let enq x q =
       match !(q.rear) with
-      | Cons (_h, t) -> assert (!t = Nil);
-                        t := Cons(x, ref Nil);
-                        q.rear := !t
+      | Cons (_hd, tl) -> assert (!tl = Nil);
+                          tl := Cons(x, ref Nil);
+                          q.rear := !tl
       | Nil -> assert (!(q.front) = Nil);
                q.front := Cons(x, ref Nil);
                q.rear := !(q.front)
     let deq q =
       match !(q.front) with
-      | Cons (h, t) ->
-         q.front := !t ;
-         (match !t with
+      | Cons (hd, tl) ->
+         q.front := !tl ;
+         (match !tl with
           | Nil -> q.rear := Nil
           | Cons(_, _) -> ());
-         Some h
+         Some hd
       | Nil -> None
-    let to_string q =
+    let to_string {front; _} =
       (* our solution for defining `to_string`: *)
       let rec to_string' mlst =
         match !mlst with
-        | Nil -> "||"
-        | Cons (hd, tl) ->
+	| Nil -> "||"
+	| Cons (hd, tl) ->
            Printf.sprintf "%s -> %s" (Elt.to_string hd) (to_string' tl) in
-      to_string' q.front
+      to_string' front 
       (* end of our solution *)
   end ;;
 
