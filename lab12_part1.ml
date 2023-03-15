@@ -21,8 +21,18 @@ files to complete all exercises:
    lab12_part2.ml -- Part 2: Gensym
    lab12_part3.ml -- Part 3: Appending mutable lists
    lab12_part4.ml -- Part 4: Adding serialization to imperative queues
+  
+**********************************************************************
+                              IMPORTANT
 
- *)
+As usual, when implementing functions in this lab, you shouldn't feel
+beholden to how the definition is introduced in the skeleton code
+below. For instance, you might want to add a `rec`, or use a different
+argument list, or no argument list at all but binding to an anonymous
+function instead. THIS IS ESPECIALLY PERTINENT TO CERTAIN PROBLEMS IN
+THIS LAB, WHERE THE NORMAL COMPACT NOTATION FOR INTRODUCING FUNCTIONS
+MAY NOT BE APPROPRIATE.
+*********************************************************************)
 
 (*====================================================================
 Part 1: Fun with references
@@ -42,11 +52,7 @@ should the type for the function as a whole be?
  *)
 
 (*....................................................................
-Exercise 2: Now implement the `incr` function. (As usual, for this and
-succeeding exercises, you shouldn't feel beholden to how the
-definition is introduced in the skeleton code below. For instance, you
-might want to add a `rec`, or use a different argument list, or no
-argument list at all but binding to an anonymous function instead.)
+Exercise 2: Now implement the `incr` function.
 ....................................................................*)
 
 let incr (n : int ref) : unit =

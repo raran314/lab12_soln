@@ -1,6 +1,6 @@
 (*
                               CS51 Lab 12
-		Imperative Programming and References
+                Imperative Programming and References
  *)
 (*
                                SOLUTION
@@ -53,7 +53,7 @@ module type IMP_QUEUE =
     val to_string : queue -> string
   end ;;
 
-(* Note that we've changed the module slightly so that the element
+(* Notice that we've changed the module slightly so that the element
 type (`elt`) is made explicit.
 
 The `to_string` function needs to know how to convert the individual
@@ -91,7 +91,7 @@ module MakeImpQueue (Elt : sig
      and mlist_internal =
        | Nil | Cons of elt * mlist
     type queue = {front: mlist; rear: mlist}
-		   
+                   
     let empty () = {front = ref Nil; rear = ref Nil}
     let enq x q =
       match !(q.rear) with
@@ -114,8 +114,8 @@ module MakeImpQueue (Elt : sig
       (* our solution for defining `to_string`: *)
       let rec to_string' mlst =
         match !mlst with
-	| Nil -> "||"
-	| Cons (hd, tl) ->
+        | Nil -> "||"
+        | Cons (hd, tl) ->
            Printf.sprintf "%s -> %s" (Elt.to_string hd) (to_string' tl) in
       to_string' front 
       (* end of our solution *)

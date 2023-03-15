@@ -31,8 +31,8 @@ the textbook: *)
 
 type 'a mlist = 'a mlist_internal ref
  and 'a mlist_internal = 
-  | Nil
-  | Cons of 'a * 'a mlist ;;
+   | Nil
+   | Cons of 'a * 'a mlist ;;
 
 (* Mutable lists are just like regular lists, except that each Nil or
 cons is a *reference* to a mutable list, so that it can be updated. *)
@@ -43,19 +43,17 @@ converts a regular list to a mutable list, with behavior like this:
 
     # let xs = mlist_of_list ["a"; "b"; "c"] ;;
     val xs : string mlist =
-      {contents =
-        Cons ("a",
-          {contents = Cons ("b", 
+      {contents = Cons ("a",
+         {contents = Cons ("b", 
             {contents = Cons ("c", 
-              {contents = Nil})})})}
+               {contents = Nil})})})}
 
     # let ys = mlist_of_list [1; 2; 3] ;;
     val ys : int mlist =
-      {contents =
-        Cons (1, 
-          {contents = Cons (2,
-             {contents = Cons (3, 
-                {contents = Nil})})})}
+      {contents = Cons (1, 
+         {contents = Cons (2,
+            {contents = Cons (3, 
+               {contents = Nil})})})}
 ....................................................................*)
 
 let rec mlist_of_list (lst : 'a list) : 'a mlist =
@@ -102,8 +100,8 @@ let length_complexity : complexity = Linear
 (*....................................................................
 Exercise 8: Now, define a function `mappend` that takes a first
 mutable list and a second mutable list and, as a side effect, causes
-the first to *become* the appending of the two lists. A question
-to think about before you get started:
+the first to *become* (as a side effect) the appending of the two
+lists. A question to think about before you get started:
 
     What is an appropriate return type for the `mappend` function?
     (You can glean our intended answer from the examples below, but
@@ -113,36 +111,36 @@ Examples of use:
 
     # let m1 = mlist_of_list [1; 2; 3] ;;
     val m1 : int mlist =
-      Cons (1, 
-       {contents = Cons (2, {contents = Cons (3, {contents = Nil})})})
+      {contents = Cons (1,
+         {contents = Cons (2,
+            {contents = Cons (3,
+               {contents = Nil})})})}
 
     # let m2 = mlist_of_list [4; 5; 6] ;;
     val m2 : int mlist =
-      Cons (4,
-       {contents = Cons (5, {contents = Cons (6, {contents = Nil})})})
+      {contents = Cons (4, 
+         {contents = Cons (5,
+            {contents = Cons (6, 
+               {contents = Nil})})})}
 
-    # length m1 ;;
+    # mlength m1 ;;
     - : int = 3
 
     # mappend m1 m2 ;;
     - : unit = ()
 
-    # length m1 ;;
+    # mlength m1 ;;
     - : int = 6
 
     # m1 ;;
     - : int mlist =
-    Cons (1,
-     {contents =
-       Cons (2,
-        {contents =
-          Cons (3,
-           {contents =
-             Cons (4,
-              {contents = 
-                Cons (5,
-                 {contents =
-                   Cons (6, {contents = Nil})})})})})})
+    {contents = Cons (1,
+       {contents = Cons (2,
+          {contents = Cons (3,
+             {contents = Cons (4,
+                {contents = Cons (5, 
+                   {contents = Cons (6, 
+                      {contents = Nil})})})})})})}
 ....................................................................*)
 
 (* Answer to thought question:
@@ -169,7 +167,7 @@ let rec mappend (xs : 'a mlist) (ys : 'a mlist) : unit =
       # let m = mlist_of_list [1; 2; 3] ;;
       # mappend m m ;;
       # m ;;
-      # length m ;;
+      # mlength m ;;
 
    Do you understand what's going on? *)
 
