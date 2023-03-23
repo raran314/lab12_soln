@@ -66,7 +66,7 @@ Exercise 6: Define a function `mlength` to compute the length of an
 `mlist`. Try to do this without looking at the solution that is given
 in the book. (Don't worry about cycles...yet.)
 
-    # mlength Nil ;;
+    # mlength (ref Nil) ;;
     - : int = 0
     # mlength (mlist_of_list [1; 2; 3; 4]) ;;
     - : int = 4
@@ -78,7 +78,7 @@ let rec mlength (mlst : 'a mlist) : int =
   | Cons (_hd, tl) -> 1 + mlength tl ;;
 
 (*....................................................................
-Exercise 7: What is the time complexity of the `length` function in
+Exercise 7: What is the time complexity of the `mlength` function in
 terms of the length of its list argument? Provide the tightest
 complexity class, recorded using the technique from lab 10.
 ....................................................................*)
